@@ -10,8 +10,13 @@
 <title>Ver/Eliminar/Modificar usuarios</title>
 
 <style >
-btn btn-secondary{
-	margin-bottom: 5%; 
+.botones{
+	display: flex; 
+	gap: 20px;
+}
+
+form{
+	display:inline-block;
 }
 </style>
 
@@ -37,18 +42,23 @@ btn btn-secondary{
 		}
 		%>
 	</table>
+	<div class="botones">
+		<form action="Principal">
+		<input type="submit" value="Volver" class="btn btn-secondary">
+	</form>
+	
+	<form action="VerUsuario">
+		<input type="submit" value="Ver" class="btn btn-secondary">
+	</form>
 	
 	<form action="Principal">
-		<input type="submit" value="Volver" class="btn btn-secondary">
+		<input type="submit" value="Modificar" class="btn btn-secondary">
 	</form>
-	<form action="Principal">
-		<input type="submit" value="Volver" class="btn btn-secondary">
+	
+	<form action="Principal" >
+		<input type="submit" value="Eliminar" class="btn btn-secondary">
 	</form>
-	<form action="Principal">
-		<input type="submit" value="Volver" class="btn btn-secondary">
-	</form>
-	<form action="Principal">
-		<input type="submit" value="Volver" class="btn btn-secondary">
-	</form>
+	</div>
+
 </body>
 </html>
