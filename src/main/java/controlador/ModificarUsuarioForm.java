@@ -13,16 +13,16 @@ import modelo.Usuario;
 import modelo.UsuarioModelo;
 
 /**
- * Servlet implementation class ModificarUsuario
+ * Servlet implementation class ModificarUsuarioForm
  */
-@WebServlet("/ModificarUsuario")
-public class ModificarUsuario extends HttpServlet {
+@WebServlet("/ModificarUsuarioForm")
+public class ModificarUsuarioForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModificarUsuario() {
+    public ModificarUsuarioForm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +31,14 @@ public class ModificarUsuario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		UsuarioModelo gest= new UsuarioModelo();
-		int id=Integer.parseInt(request.getParameter("id"));
-		String name=request.getParameter("nombre");
-		
-		Usuario usu=new Usuario(id,name);
+		Usuario usu=new Usuario();
+		int id= Integer.parseInt(request.getParameter("id"));
 		
 		try {
 			gest.conectar();
-			gest.modificarUsuario(usu);
+			usu=gest.getUsuario(id);
 			gest.cerrar();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -50,7 +48,10 @@ public class ModificarUsuario extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("EMV").forward(request, response);	
+		request.setAttribute("Usuario", usu);
+		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("FormularioModificar.jsp").forward(request, response);
 	}
 
 	/**
@@ -59,8 +60,6 @@ public class ModificarUsuario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
-			
 	}
 
 }
