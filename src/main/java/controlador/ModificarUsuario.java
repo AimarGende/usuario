@@ -35,8 +35,8 @@ public class ModificarUsuario extends HttpServlet {
 		UsuarioModelo gest= new UsuarioModelo();
 		int id=Integer.parseInt(request.getParameter("id"));
 		String name=request.getParameter("nombre");
-		
-		Usuario usu=new Usuario(id,name);
+		String contrasena=request.getParameter("contrasena");
+		Usuario usu=new Usuario(id,name,contrasena);
 		
 		try {
 			gest.conectar();

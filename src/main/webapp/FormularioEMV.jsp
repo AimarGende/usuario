@@ -26,6 +26,7 @@ form{
 		<tr>
 			<th scope="row">ID</th>
 			<th scope="row">NOMBRE</th>
+			<th scope="row">CONTRASEÑA</th>
 			<th scope="row">MODIFICAR</th>
 			<th scope="row">ELIMINAR</th>
 		</tr>
@@ -35,6 +36,7 @@ form{
 			%><tr>
 				<td scope="row"><%out.println(usu.getId()); %></a></td>
 				<td><%out.println(usu.getNombre()); %></td>	
+				<td><%= usu.getContrasena() %></td>
 				<td ><a href="ModificarUsuarioForm?id=<%out.println(usu.getId());%>"> <img alt="" src="https://static.vecteezy.com/system/resources/previews/019/896/650/non_2x/pencil-drawing-doodle-sketch-line-png.png" width="50"> </a></td>		
 				<td><a href="EliminarUsuario?id=<%out.println(usu.getId());%>"> <img alt="" src="https://cdn.pixabay.com/photo/2023/03/12/10/36/forbidden-7846398_640.png" width="50"> </a></td>	
 			</tr>  <%
@@ -51,13 +53,6 @@ form{
 		<input type="submit" value="Ver" class="btn btn-secondary">
 	</form>
 	
-	<form action="Principal">
-		<input type="submit" value="Modificar" class="btn btn-secondary">
-	</form>
-	
-	<form action="Principal" >
-		<input type="submit" value="Eliminar" class="btn btn-secondary">
-	</form>
 	</div>
 
 </body>

@@ -6,9 +6,9 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>	<form mehtod="post">
+<body>	<form action="MostrarUsuario" >
 			<label>Introduca la id</label> 
-		<input type="hidden" name="id" placeholder="id" > 
+		<input type="text" name="id">
 		<input type="submit" value="Buscar">
 		</form>
 	

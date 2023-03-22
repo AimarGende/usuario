@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.Usuario;
 import modelo.UsuarioModelo;
 
 /**
@@ -43,12 +44,13 @@ public class CrearUsuario extends HttpServlet {
 		doGet(request, response);
 		
 		String nombre= (String) request.getParameter("nombre");
-		
+		String contrasena= request.getParameter("contrasena");
+		Usuario usu= new Usuario();
 		UsuarioModelo gest= new UsuarioModelo();
 		
 		try {
 			gest.conectar();
-			gest.crearUsuario(nombre);
+			gest.crearUsuario(usu);
 			gest.cerrar();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

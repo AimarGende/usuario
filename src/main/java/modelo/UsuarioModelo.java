@@ -8,10 +8,11 @@ import java.util.ArrayList;
 public class UsuarioModelo extends Conector{
 	PreparedStatement pt;
 	
-	public boolean crearUsuario(String nombre){
+	public boolean crearUsuario(Usuario usuario){
 		try {
-			pt= getCon().prepareStatement("INSERT INTO usuario (Nombre) VALUES (?)");
-			pt.setString(1, nombre);
+			pt= getCon().prepareStatement("INSERT INTO usuario (Nombre,Contrasena) VALUES (?,?)");
+			pt.setString(1, usuario.getNombre());
+			pt.setString(2, usuario.getContrasena());
 			pt.execute();
 			return true;
 		} catch (SQLException e) {
@@ -37,9 +38,10 @@ public class UsuarioModelo extends Conector{
 	
 	public boolean modificarUsuario(Usuario usuario) {
 		try {
-			pt=getCon().prepareStatement("UPDATE usuario SET Nombre=? WHERE id=?");
+			pt=getCon().prepareStatement("UPDATE usuario SET Nombre=?, Contrasena=? WHERE id=?");
 			pt.setString(1, usuario.getNombre());
-			pt.setInt(2, usuario.getId());
+			pt.setString(2, usuario.getContrasena());
+			pt.setInt(3, usuario.getId());
 			pt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -62,6 +64,7 @@ public class UsuarioModelo extends Conector{
 		
 		usu.setId(result.getInt("id"));
 		usu.setNombre(result.getString("Nombre"));
+		usu.setContrasena(result.getString("Contrasena"));
 		
 		return usu;
 	}
@@ -79,6 +82,7 @@ public class UsuarioModelo extends Conector{
 			
 			usu.setId(result.getInt("id"));
 			usu.setNombre(result.getString("Nombre"));
+			usu.setContrasena(result.getString("Contrasena"));
 			
 			usuarios.add(usu);
 		}
