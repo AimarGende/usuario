@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.Usuario;
-import modelo.UsuarioModelo;
+import modelo.bean.Usuario;
+import modelo.dao.RolModelo;
+import modelo.dao.UsuarioModelo;
 
 /**
  * Servlet implementation class ModificarUsuarioForm
@@ -47,8 +48,18 @@ public class ModificarUsuarioForm extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		RolModelo gestR = new RolModelo();
+		try {
+			gestR.conectar();
+			request.setAttribute("roles", gestR.getRoles());
+			gestR.cerrar();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		request.setAttribute("Usuario", usu);
+		
+		request.setAttribute("usuario", usu);
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.getRequestDispatcher("FormularioModificar.jsp").forward(request, response);

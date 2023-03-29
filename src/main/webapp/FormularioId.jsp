@@ -11,6 +11,9 @@
 		<input type="text" name="id">
 		<input type="submit" value="Buscar">
 		</form>
+		<form action="Principal">
+		<input type="submit" value="Volver" class="btn btn-secondary">
+	</form>
 	
 </body>
 </html>

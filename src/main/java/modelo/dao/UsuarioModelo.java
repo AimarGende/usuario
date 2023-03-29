@@ -1,18 +1,25 @@
-package modelo;
+package modelo.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import modelo.Conector;
+import modelo.bean.Rol;
+import modelo.bean.Usuario;
 
 public class UsuarioModelo extends Conector{
 	PreparedStatement pt;
 	
 	public boolean crearUsuario(Usuario usuario){
 		try {
-			pt= getCon().prepareStatement("INSERT INTO usuario (Nombre,Contrasena) VALUES (?,?)");
+			pt= getCon().prepareStatement("INSERT INTO usuario (Nombre,Contrasena,login,id_rol) VALUES (?,?,?,?)");
 			pt.setString(1, usuario.getNombre());
 			pt.setString(2, usuario.getContrasena());
+			pt.setDate(3, new Date (usuario.getFecha_login().getTime()));
+			pt.setInt(4, usuario.getRol().getId());
 			pt.execute();
 			return true;
 		} catch (SQLException e) {
@@ -38,10 +45,12 @@ public class UsuarioModelo extends Conector{
 	
 	public boolean modificarUsuario(Usuario usuario) {
 		try {
-			pt=getCon().prepareStatement("UPDATE usuario SET Nombre=?, Contrasena=? WHERE id=?");
+			pt=getCon().prepareStatement("UPDATE usuario SET Nombre=?, Contrasena=?, login=?, id_rol=? WHERE id=?");
 			pt.setString(1, usuario.getNombre());
 			pt.setString(2, usuario.getContrasena());
-			pt.setInt(3, usuario.getId());
+			pt.setDate(3, new Date (usuario.getFecha_login().getTime()) );
+			pt.setInt(4, usuario.getRol().getId());
+			pt.setInt(5, usuario.getId());
 			pt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -54,7 +63,7 @@ public class UsuarioModelo extends Conector{
 	
 	public Usuario getUsuario(int id) throws SQLException {
 		Usuario usu=new Usuario();
-		
+
 		pt=getCon().prepareStatement("SELECT * FROM usuario WHERE id=?");
 		
 		pt.setInt(1, id);
@@ -65,7 +74,21 @@ public class UsuarioModelo extends Conector{
 		usu.setId(result.getInt("id"));
 		usu.setNombre(result.getString("Nombre"));
 		usu.setContrasena(result.getString("Contrasena"));
+		usu.setFecha_login(result.getDate("login"));
 		
+		try {
+			RolModelo gest= new RolModelo();
+			gest.conectar();
+			usu.setRol(gest.getRol(result.getInt("id_rol")));
+			gest.cerrar();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		return usu;
 	}
 	
@@ -83,9 +106,40 @@ public class UsuarioModelo extends Conector{
 			usu.setId(result.getInt("id"));
 			usu.setNombre(result.getString("Nombre"));
 			usu.setContrasena(result.getString("Contrasena"));
+			usu.setFecha_login(result.getDate("login"));
+			try {
+				RolModelo gest= new RolModelo();
+				gest.conectar();
+				usu.setRol(gest.getRol(result.getInt("id_rol")));
+				gest.cerrar();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			usuarios.add(usu);
 		}
 		return usuarios;
+	}
+	
+	public ArrayList<Rol> getRoles(ArrayList<Usuario> usuarios){
+		ArrayList<Rol> roles=new ArrayList<Rol>();
+		for(Usuario usu:usuarios) {
+			RolModelo gest= new RolModelo();
+			try {
+				gest.conectar();
+				roles.add(gest.getRol(usu.getRol().getId()));
+				gest.cerrar();
+				
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return roles;
 	}
 }

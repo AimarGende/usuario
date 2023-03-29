@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.Usuario;
-import modelo.UsuarioModelo;
+import modelo.bean.Rol;
+import modelo.bean.Usuario;
+import modelo.dao.UsuarioModelo;
 
 /**
  * Servlet implementation class EMV
@@ -35,7 +36,8 @@ public class EMV extends HttpServlet {
 		// TODO Auto-generated method stub
 		UsuarioModelo gest= new UsuarioModelo();		
 		
-		ArrayList<Usuario> usuarios=new ArrayList<Usuario>();
+		
+		ArrayList<Usuario> usuarios= null;
 			try {
 				gest.conectar();
 				usuarios=gest.getUsuarios();
@@ -47,8 +49,9 @@ public class EMV extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-
+			
+	
+			
 		request.setAttribute("usuarios", usuarios);
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath());

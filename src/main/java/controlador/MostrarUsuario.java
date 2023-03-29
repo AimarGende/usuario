@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.Usuario;
-import modelo.UsuarioModelo;
+import modelo.bean.Usuario;
+import modelo.dao.UsuarioModelo;
 
 /**
  * Servlet implementation class MostrarUsuario
