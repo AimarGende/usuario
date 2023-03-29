@@ -109,6 +109,7 @@ public class UsuarioModelo extends Conector{
 			usu.setFecha_login(result.getDate("login"));
 			try {
 				RolModelo gest= new RolModelo();
+
 				gest.conectar();
 				usu.setRol(gest.getRol(result.getInt("id_rol")));
 				gest.cerrar();
