@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import modelo.Conector;
-import modelo.bean.Rol;
 import modelo.bean.Usuario;
 
 public class UsuarioModelo extends Conector{
@@ -126,21 +125,5 @@ public class UsuarioModelo extends Conector{
 		return usuarios;
 	}
 	
-	public ArrayList<Rol> getRoles(ArrayList<Usuario> usuarios){
-		ArrayList<Rol> roles=new ArrayList<Rol>();
-		for(Usuario usu:usuarios) {
-			RolModelo gest= new RolModelo();
-			try {
-				gest.conectar();
-				roles.add(gest.getRol(usu.getRol().getId()));
-				gest.cerrar();
-				
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		return roles;
-	}
+
 }

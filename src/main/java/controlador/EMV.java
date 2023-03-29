@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.bean.Rol;
 import modelo.bean.Usuario;
 import modelo.dao.UsuarioModelo;
 
